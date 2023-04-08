@@ -1,0 +1,74 @@
+swagger: "2.0"
+info:
+  description: "API pour gérer les informations de personnes."
+  version: "1.0.0"
+  title: "Personnes API"
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+paths:
+  /personnes:
+    get:
+      summary: "Récupérer toutes les personnes enregistrées"
+      description: "Renvoie toutes les personnes enregistrées dans la base de données."
+      responses:
+        200:
+          description: "Personnes récupérées avec succès"
+          schema:
+            type: "array"
+            items:
+              type: "object"
+              properties:
+                nom:
+                  type: "string"
+                  example: "Dupont"
+                prenom:
+                  type: "string"
+                  example: "Pierre"
+                date_naissance:
+                  type: "string"
+                  example: "1980-01-01"
+                age:
+                  type: "integer"
+                  example: 43
+      produces:
+        - "application/json"
+    post:
+      summary: "Ajouter une nouvelle personne"
+      description: "Ajoute une nouvelle personne à la base de données."
+      parameters:
+        - in: "body"
+          name: "body"
+          description: "Données de la nouvelle personne à ajouter"
+          required: true
+          schema:
+            type: "object"
+            properties:
+              nom:
+                type: "string"
+              prenom:
+                type: "string"
+              date_naissance:
+                type: "string"
+                format: "date"
+      responses:
+        201:
+          description: "Personne ajoutée avec succès"
+        400:
+          description: "La personne a plus de 150 ans"
+      produces:
+        - "application/json"
+
+definitions:
+  Personne:
+    type: "object"
+    properties:
+      nom:
+        type: "string"
+      prenom:
+        type: "string"
+      date_naissance:
+        type: "string"
+        format: "date"
